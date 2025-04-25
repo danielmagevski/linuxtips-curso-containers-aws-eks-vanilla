@@ -1,12 +1,12 @@
 project_name = "linuxtips-eks-cluster"
 region       = "us-east-1"
 
-k8s_version = "1.30"
+k8s_version = "1.31"
 
 auto_scale_options = {
   min     = 2
-  max     = 5
-  desired = 3
+  max     = 3
+  desired = 2
 }
 
 nodes_instance_sizes = [
