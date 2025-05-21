@@ -61,12 +61,6 @@ variable "addon_coredns_version" {
 
 variable "addon_kubeproxy_version" {
   type        = string
-  default     = "v1.30.6-eksbuild.3"
+  default     = "v1.27.12-eksbuild.2"
   description = "Versão do Addon do Kube-Proxy"
 }
-
-# # variable "addon_pod_identity_version" {
-# #   type        = string
-# #   default     = "v1.3.4-eksbuild.1"
-# #   description = "Versão do Addon do Pod Identity"
-# # }
