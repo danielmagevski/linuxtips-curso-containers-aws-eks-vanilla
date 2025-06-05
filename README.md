@@ -1,4 +1,5 @@
 # linuxtips-curso-containers-aws-eks-vanilla
+
 Repositório do cluster minimo de EKS do curso
 
 <!-- BEGIN_TF_DOCS -->
@@ -12,10 +13,10 @@ Repositório do cluster minimo de EKS do curso
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.94.1 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.99.1 |
 | <a name="provider_helm"></a> [helm](#provider\_helm) | 2.17.0 |
 | <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | 1.19.0 |
-| <a name="provider_tls"></a> [tls](#provider\_tls) | 4.0.6 |
+| <a name="provider_tls"></a> [tls](#provider\_tls) | 4.1.0 |
 
 ## Modules
 

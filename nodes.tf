@@ -15,8 +15,6 @@ resource "aws_eks_node_group" "main" {
     min_size     = lookup(var.auto_scale_options, "min")
   }
 
-
-
   labels = {
     "ingress/ready" = "true"
   }
@@ -35,7 +33,6 @@ resource "aws_eks_node_group" "main" {
       scaling_config[0].desired_size
     ]
   }
-
 
   timeouts {
     create = "1h"
