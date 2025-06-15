@@ -78,6 +78,16 @@ variable "karpenter_capacity" {
   }))
 }
 
+variable "dns_name" {
+  type    = string
+  default = "chip.danielbr.me"
+}
+
+variable "route53_hosted_zone" {
+  type    = string
+  default = "Z03401263USG3HK0BZ0JZ"
+}
+
 # # variable "addon_pod_identity_version" {
 # #   type        = string
 # #   default     = "v1.3.4-eksbuild.1"

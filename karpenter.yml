@@ -8,11 +8,11 @@ spec:
   amiSelectorTerms:
     - id: ami-0cd1ba68c12d7cba8
   securityGroupSelectorTerms:
-    - id: sg-000cb9cb1daae1604
+    - id: sg-002a732a512386fc0
   subnetSelectorTerms:
-    - id: subnet-08cc52e9cb92bc741
-    - id: subnet-0ae02a7cbd5a1adde
-    - id: subnet-06281b0e3e50671ec
+    - id: subnet-0f9c6310db8c0c149
+    - id: subnet-023763b550d511928
+    - id: subnet-0fd1c5dea233b13a8
 ---
 apiVersion: karpenter.sh/v1
 kind: NodePool
