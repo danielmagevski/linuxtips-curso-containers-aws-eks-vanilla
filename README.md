@@ -85,8 +85,10 @@ No modules.
 | [helm_release.karpenter](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.kube_state_metrics](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.metrics_server](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.nginx_controller](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [kubectl_manifest.ec2_node_class](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
 | [kubectl_manifest.nodepool](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
+| [kubectl_manifest.target_binding_80](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
 | [archive_file.coredns_archive](https://registry.terraform.io/providers/hashicorp/archive/latest/docs/data-sources/file) | data source |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_eks_cluster_auth.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
@@ -117,6 +119,12 @@ No modules.
 | <a name="input_dns_name"></a> [dns\_name](#input\_dns\_name) | n/a | `string` | `"chip.danielbr.me"` | no |
 | <a name="input_k8s_version"></a> [k8s\_version](#input\_k8s\_version) | Versão do kubernetes do projeto | `string` | n/a | yes |
 | <a name="input_karpenter_capacity"></a> [karpenter\_capacity](#input\_karpenter\_capacity) | n/a | <pre>list(object({<br>    name               = string<br>    workload           = string<br>    ami_family         = string<br>    ami_ssm            = string<br>    instance_family    = list(string)<br>    instance_sizes     = list(string)<br>    capacity_type      = list(string)<br>    availability_zones = list(string)<br>  }))</pre> | n/a | yes |
+| <a name="input_nginx_limits_cpu"></a> [nginx\_limits\_cpu](#input\_nginx\_limits\_cpu) | n/a | `string` | `"500m"` | no |
+| <a name="input_nginx_limits_memory"></a> [nginx\_limits\_memory](#input\_nginx\_limits\_memory) | n/a | `string` | `"1024Mi"` | no |
+| <a name="input_nginx_max_replicas"></a> [nginx\_max\_replicas](#input\_nginx\_max\_replicas) | n/a | `string` | `"60"` | no |
+| <a name="input_nginx_min_replicas"></a> [nginx\_min\_replicas](#input\_nginx\_min\_replicas) | n/a | `string` | `"3"` | no |
+| <a name="input_nginx_requests_cpu"></a> [nginx\_requests\_cpu](#input\_nginx\_requests\_cpu) | n/a | `string` | `"250m"` | no |
+| <a name="input_nginx_requests_memory"></a> [nginx\_requests\_memory](#input\_nginx\_requests\_memory) | n/a | `string` | `"512Mi"` | no |
 | <a name="input_nodes_instance_sizes"></a> [nodes\_instance\_sizes](#input\_nodes\_instance\_sizes) | Lista de tamanhos das instâncias do projeto | `list(string)` | n/a | yes |
 | <a name="input_project_name"></a> [project\_name](#input\_project\_name) | Nome do projeto / cluster | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | Nome da região onde os recursos serão entregues | `string` | n/a | yes |

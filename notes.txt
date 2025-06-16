@@ -1,0 +1,16 @@
+
+# health api com ingress
+curl --location --request POST 'http://linuxtips-eks-cluster-d98ab4e1c182cfdc.elb.us-east-1.amazonaws.com/calculator' \
+  -H 'Host: health.danielbr.me' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "age": 26,
+    "weight": 90.0,
+    "height": 1.77,
+    "gender": "M",
+    "activity_intensity": "very_active"
+  }' | jq .
+
+# chip com nginx
+curl -X GET 'http://linuxtips-eks-cluster-d98ab4e1c182cfdc.elb.us-east-1.amazonaws.com/system' \
+  -H 'Host: chip.danielbr.me'
