@@ -10,8 +10,7 @@ auto_scale_options = {
 }
 
 nodes_instance_sizes = [
-  "t3.medium",
-  "t3.large"
+  "t3.medium"
 ]
 
 ssm_vpc = "/linuxtips-vpc/vpc/id"

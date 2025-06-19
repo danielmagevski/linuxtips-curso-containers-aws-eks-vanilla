@@ -1,0 +1,7 @@
+aws eks describe-addon-versions --addon-name eks-pod-identity-agent
+aws eks describe-addon-versions --addon-name aws-ebs-csi-driver
+aws eks describe-addon-versions --addon-name aws-efs-csi-driver
+aws eks describe-addon-versions --addon-name aws-mountpoint-s3-csi-driver
+kubectl get nodes
+kubectl get pods -n kube-system
+kubectl get storageclasses
