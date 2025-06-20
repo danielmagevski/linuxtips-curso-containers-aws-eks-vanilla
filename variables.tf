@@ -65,8 +65,8 @@ variable "addon_kubeproxy_version" {
   description = "Versão do Addon do Kube-Proxy"
 }
 
-# # variable "addon_pod_identity_version" {
-# #   type        = string
-# #   default     = "v1.3.4-eksbuild.1"
-# #   description = "Versão do Addon do Pod Identity"
-# # }
+variable "addon_pod_identity_version" {
+  type        = string
+  default     = "v1.3.4-eksbuild.1"
+  description = "Versão do Addon do Pod Identity"
+}
