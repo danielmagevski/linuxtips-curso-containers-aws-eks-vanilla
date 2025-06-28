@@ -1,0 +1,4 @@
+# chip com nginx
+curl -X GET 'http://k8s-chip-chipingr-229a1c321e-1186538866.us-east-1.elb.amazonaws.com/system' \
+  -H 'Host: chip.danielbr.me'
+
