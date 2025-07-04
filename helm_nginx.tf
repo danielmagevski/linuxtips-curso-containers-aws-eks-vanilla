@@ -13,7 +13,7 @@ resource "helm_release" "nginx_controller" {
   }
 
   set {
-    name  = "controller.publishService.enable"
+    name  = "controller.publishService.enabled"
     value = "true"
   }
 
