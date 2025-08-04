@@ -90,35 +90,35 @@ variable "route53_hosted_zone" {
 
 # Nginx
 
-variable "nginx_min_replicas" {
-  type        = string
-  default     = "3"
-}
+# variable "nginx_min_replicas" {
+#   type        = string
+#   default     = "3"
+# }
 
-variable "nginx_max_replicas" {
-  type        = string
-  default     = "60"
-}
+# variable "nginx_max_replicas" {
+#   type        = string
+#   default     = "60"
+# }
 
-variable "nginx_requests_cpu" {
-  type        = string
-  default     = "250m"
-}
+# variable "nginx_requests_cpu" {
+#   type        = string
+#   default     = "250m"
+# }
 
-variable "nginx_requests_memory" {
-  type        = string
-  default     = "512Mi"
-}
+# variable "nginx_requests_memory" {
+#   type        = string
+#   default     = "512Mi"
+# }
 
-variable "nginx_limits_cpu" {
-  type        = string
-  default     = "500m"
-}
+# variable "nginx_limits_cpu" {
+#   type        = string
+#   default     = "500m"
+# }
 
-variable "nginx_limits_memory" {
-  type        = string
-  default     = "1024Mi"
-}
+# variable "nginx_limits_memory" {
+#   type        = string
+#   default     = "1024Mi"
+# }
 
 variable "addon_pod_identity_version" {
   type        = string
@@ -134,6 +134,50 @@ variable "addon_efs_csi_version" {
 
 variable "grafana_host" {
   type        = string
-  default     = "grafana.labdev.cloud"
+  default     = "grafana.danielbr.me"
   description = "Host do Grafana"
 }
+
+// Istio
+
+variable "istio_version" {
+  type        = string
+  description = "Versão do Istio"
+  default     = "1.25.0"
+}
+
+variable "istio_min_replicas" {
+  type        = string
+  description = "value of min replicas"
+  default     = "3"
+}
+
+
+
+variable "istio_cpu_threshold" {
+  type        = string
+  description = "value of cpu threshold"
+  default     = "60"
+}
+
+// Jaeger
+
+variable "jaeger_host" {
+  type        = string
+  description = "Host do Jaeger"
+  default     = "jaeger.danielbr.me"
+}
+
+// Kiali 
+
+variable "kiali_host" {
+  type        = string
+  description = "Host do Kiali"
+  default     = "kiali.danielbr.me"
+}
+
+variable "kiali_version" {
+  type        = string
+  description = "value of kiali version"
+  default     = "2.5"
+} 

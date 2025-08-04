@@ -87,13 +87,24 @@ No modules.
 | [aws_sqs_queue.karpenter](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue) | resource |
 | [aws_sqs_queue_policy.karpenter](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue_policy) | resource |
 | [helm_release.alb_ingress_controller](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.istio_base](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.istio_ingress](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.istiod](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.jaeger](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.karpenter](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.kiali-server](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.kube_state_metrics](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.metrics_server](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [helm_release.nginx_controller](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.prometheus](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [kubectl_manifest.ec2_node_class](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
+| [kubectl_manifest.envoy_pod_monitor](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
 | [kubectl_manifest.grafana_efs_storage_class](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
+| [kubectl_manifest.grafana_gateway](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
+| [kubectl_manifest.grafana_virtual_service](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
+| [kubectl_manifest.jaeger_gateway](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
+| [kubectl_manifest.jaeger_virtual_service](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
+| [kubectl_manifest.kiali_gateway](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
+| [kubectl_manifest.kiali_virtual_service](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
 | [kubectl_manifest.nodepool](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
 | [kubectl_manifest.prometheus_efs_storage_class](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
 | [kubectl_manifest.target_binding_80](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
@@ -125,15 +136,15 @@ No modules.
 | <a name="input_addon_pod_identity_version"></a> [addon\_pod\_identity\_version](#input\_addon\_pod\_identity\_version) | Versão do Addon do Pod Identity | `string` | `"v1.3.4-eksbuild.1"` | no |
 | <a name="input_auto_scale_options"></a> [auto\_scale\_options](#input\_auto\_scale\_options) | Configurações de Autoscaling do Cluster | <pre>object({<br>    min     = number<br>    max     = number<br>    desired = number<br>  })</pre> | n/a | yes |
 | <a name="input_dns_name"></a> [dns\_name](#input\_dns\_name) | n/a | `string` | `"chip.danielbr.me"` | no |
-| <a name="input_grafana_host"></a> [grafana\_host](#input\_grafana\_host) | Host do Grafana | `string` | `"grafana.labdev.cloud"` | no |
+| <a name="input_grafana_host"></a> [grafana\_host](#input\_grafana\_host) | Host do Grafana | `string` | `"grafana.danielbr.me"` | no |
+| <a name="input_istio_cpu_threshold"></a> [istio\_cpu\_threshold](#input\_istio\_cpu\_threshold) | value of cpu threshold | `string` | `"60"` | no |
+| <a name="input_istio_min_replicas"></a> [istio\_min\_replicas](#input\_istio\_min\_replicas) | value of min replicas | `string` | `"3"` | no |
+| <a name="input_istio_version"></a> [istio\_version](#input\_istio\_version) | Versão do Istio | `string` | `"1.25.0"` | no |
+| <a name="input_jaeger_host"></a> [jaeger\_host](#input\_jaeger\_host) | Host do Jaeger | `string` | `"jaeger.danielbr.me"` | no |
 | <a name="input_k8s_version"></a> [k8s\_version](#input\_k8s\_version) | Versão do kubernetes do projeto | `string` | n/a | yes |
 | <a name="input_karpenter_capacity"></a> [karpenter\_capacity](#input\_karpenter\_capacity) | n/a | <pre>list(object({<br>    name               = string<br>    workload           = string<br>    ami_family         = string<br>    ami_ssm            = string<br>    instance_family    = list(string)<br>    instance_sizes     = list(string)<br>    capacity_type      = list(string)<br>    availability_zones = list(string)<br>  }))</pre> | n/a | yes |
-| <a name="input_nginx_limits_cpu"></a> [nginx\_limits\_cpu](#input\_nginx\_limits\_cpu) | n/a | `string` | `"500m"` | no |
-| <a name="input_nginx_limits_memory"></a> [nginx\_limits\_memory](#input\_nginx\_limits\_memory) | n/a | `string` | `"1024Mi"` | no |
-| <a name="input_nginx_max_replicas"></a> [nginx\_max\_replicas](#input\_nginx\_max\_replicas) | n/a | `string` | `"60"` | no |
-| <a name="input_nginx_min_replicas"></a> [nginx\_min\_replicas](#input\_nginx\_min\_replicas) | n/a | `string` | `"3"` | no |
-| <a name="input_nginx_requests_cpu"></a> [nginx\_requests\_cpu](#input\_nginx\_requests\_cpu) | n/a | `string` | `"250m"` | no |
-| <a name="input_nginx_requests_memory"></a> [nginx\_requests\_memory](#input\_nginx\_requests\_memory) | n/a | `string` | `"512Mi"` | no |
+| <a name="input_kiali_host"></a> [kiali\_host](#input\_kiali\_host) | Host do Kiali | `string` | `"kiali.danielbr.me"` | no |
+| <a name="input_kiali_version"></a> [kiali\_version](#input\_kiali\_version) | value of kiali version | `string` | `"2.5"` | no |
 | <a name="input_nodes_instance_sizes"></a> [nodes\_instance\_sizes](#input\_nodes\_instance\_sizes) | Lista de tamanhos das instâncias do projeto | `list(string)` | n/a | yes |
 | <a name="input_project_name"></a> [project\_name](#input\_project\_name) | Nome do projeto / cluster | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | Nome da região onde os recursos serão entregues | `string` | n/a | yes |
