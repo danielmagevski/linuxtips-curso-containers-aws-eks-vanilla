@@ -12,5 +12,5 @@ while true; do curl --location --request POST 'health.danielbr.me/calculator' \
   }' | jq . ; echo ; done
 
 # chip com nginx
-curl -X GET 'http://linuxtips-eks-cluster-d98ab4e1c182cfdc.elb.us-east-1.amazonaws.com/system' \
+curl -X GET 'http://linuxtips-eks-cluster-3431140dfbe6e9a8.elb.us-east-1.amazonaws.com/burn/cpu' \
   -H 'Host: chip.danielbr.me'

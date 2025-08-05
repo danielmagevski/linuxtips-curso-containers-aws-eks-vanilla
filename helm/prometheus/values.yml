@@ -29,7 +29,7 @@ nodeExporter:
   enabled: true
 
 kubeStateMetrics:
-  enabled: false
+  enabled: true
 
 alertmanager:
   enabled: false
