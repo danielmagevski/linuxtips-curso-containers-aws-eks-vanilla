@@ -190,3 +190,17 @@ variable "keda_version" {
   default = "2.16.0"
   
 }
+
+// Argo Rollouts
+
+variable "argo_rollouts_version" {
+  type    = string
+  default = "2.34.1"
+  description = "value of argo x version"
+}
+
+variable "argo_rollouts_host" {
+  type = string
+  default = "argo-rollouts.danielbr.me"
+  description = "Host do Argo Rollouts"
+}
