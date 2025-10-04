@@ -8,8 +8,6 @@ app:
   createNamespace: true
   iam: ""
 
-
-
   capacity:
     requests:
       cpu: 100m
@@ -66,7 +64,6 @@ app:
 
   keda: 
     enabled: true
-
     hpaConfig:
       behavior:
         scaleDown:
@@ -108,7 +105,7 @@ app:
       threshold: 80
     
   istio:
-    host: linuxtips.msfidelis.com.br
+    host: linuxtips.danielbr.me
     gateway:
       enabled: true
       protocol: HTTP

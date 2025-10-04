@@ -6,6 +6,53 @@ metadata:
     istio-injection: enabled
 ---
 apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: chip-warm-up-operation
+  namespace: chip
+spec:
+  metrics:
+    - name: k6-stack-warm-up
+      failureLimit: 0
+      provider:
+        job:
+          spec:
+            backoffLimit: 1
+            template:
+              metadata:
+                labels:
+                  istio-injection: disabled
+                  sidecar.istio.io/inject: "false"
+              spec:
+                containers:
+                  - name: k6-stack-warm-up
+                    image: fidelissauro/chip-test-green:latest
+                restartPolicy: Never
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: chip-success-rate
+  namespace: chip
+spec:
+  metrics:
+    - name: success-rate
+      interval: 2m
+      successCondition: result[0] >= 0.95
+      failureLimit: 0
+      provider:
+        prometheus:
+          address: http://prometheus-kube-prometheus-prometheus.prometheus.svc.cluster.local:9090
+          query: |
+            sum(irate(
+              istio_requests_total{destination_service=~"chip-green.chip.svc.cluster.local",response_code!~"5.*"}[1m]
+            )) /
+            sum(irate(
+              istio_requests_total{destination_service=~"chip-green.chip.svc.cluster.local"}[1m]
+            ))
+      count: 1
+---
+apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
   labels:
@@ -16,9 +63,15 @@ spec:
   # Canary Release Manual
   revisionHistoryLimit: 3
   strategy:
-    canary:
-      steps:
-        - setWeight: 100
+    blueGreen:
+      activeService: chip
+      previewService: chip-green
+      autoPromotionEnabled: true
+      scaleDownDelaySeconds: 30
+      prePromotionAnalysis:
+        templates:
+          - templateName: chip-warm-up-operation
+          - templateName: chip-success-rate
   replicas: 5
   selector:
     matchLabels:
@@ -28,7 +81,7 @@ spec:
       labels:
         app: chip
         name: chip
-        version: v1
+        version: v10
     spec:
       topologySpreadConstraints:
         - maxSkew: 1
@@ -39,7 +92,7 @@ spec:
               app: chip
 
       nodeSelector:
-        karpenter.sh/nodepool: "chip-capacity"
+        karpenter.sh/nodepool: "general"
 
       containers:
         - name: chip
@@ -83,7 +136,7 @@ spec:
             - name: CHAOS_MONKEY_MEMORY
               value: "true"
             - name: VERSION
-              value: "v1"
+              value: "v10"
       terminationGracePeriodSeconds: 60
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -100,7 +153,7 @@ spec:
         name: http
         protocol: HTTP
       hosts:
-        - "chip.danielbr.me"
+        - "chip.msfidelis.com.br"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -110,7 +163,7 @@ metadata:
 spec:
   hosts:
     - "chip.chip.svc.cluster.local"
-    - "chip.danielbr.me"
+    - "chip.msfidelis.com.br"
   gateways:
     - chip
   http:
@@ -120,9 +173,9 @@ spec:
             port:
               number: 8080
       retries:
-        attempts: 3
+        attempts: 1
         perTryTimeout: 10500ms
-        retryOn: 5xx
+        retryOn: connect-failure,refused-stream
 ---
 apiVersion: v1
 kind: Service
@@ -141,4 +194,69 @@ spec:
     app: chip
   type: ClusterIP
 ---
-
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: chip-green
+  namespace: chip
+spec:
+  hosts:
+    - "chip-green.chip.svc.cluster.local"
+    - "chip-green.msfidelis.com.br"
+  gateways:
+    - chip
+  http:
+    - route:
+        - destination:
+            host: chip-green
+            port:
+              number: 8080
+      retries:
+        attempts: 3
+        perTryTimeout: 10500ms
+        retryOn: 5xx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chip-green
+  namespace: chip
+  labels:
+    app.kubernetes.io/name: chip
+    app.kubernetes.io/instance: chip
+spec:
+  ports:
+    - name: web
+      port: 8080
+      protocol: TCP
+  selector:
+    app: chip
+  type: ClusterIP
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: chip-high-tps
+  namespace: chip
+spec:
+  scaleTargetRef:
+    name: chip
+  minReplicaCount: 3
+  maxReplicaCount: 30
+  pollingInterval: 10
+  cooldownPeriod: 30
+  advanced:
+    horizontalPodAutoscalerConfig:
+      behavior:
+        scaleDown:
+          stabilizationWindowSeconds: 20
+        scaleUp:
+          stabilizationWindowSeconds: 20
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: http://prometheus-kube-prometheus-prometheus.prometheus.svc.cluster.local:9090
+        metricName: istio_requests_total
+        threshold: "10" # <---- Quantidade de requisições por pod. No exemplo, 10 TPS.
+        query: |
+          sum(rate(istio_requests_total{destination_service_name="chip"}[1m]))
